@@ -6,7 +6,7 @@ from flask import Flask, request
 # загружаем переменные окружения из файла .env
 load_dotenv()
 TOKEN = environ.get('TOKEN')
-PORT = int(environ.get('PORT', 5000))
+PORT = int(environ.get('PORT', 5000))  # второе значение по умолчанию, если не будет найдено первое
 
 # создаем обьект bot и обьект server
 bot = telebot.TeleBot(token=TOKEN)
@@ -33,12 +33,11 @@ def webhook():
     return "!", 200
 
 
-# main функция с polling
-# наш бот постоянно бегает на сервер Telegram с вопросом "Для меня есть сообщения?"
+# main функция с Web Hook
+# наш бот смиренно ждет сообщение от Telegram
 def main():
-    pass
+    server.run(host="0.0.0.0", port=PORT)
 
 
 if __name__ == '__main__':
-    server.run(host="0.0.0.0", port=PORT)
     main()

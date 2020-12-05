@@ -3,11 +3,10 @@ from os import environ
 from dotenv import load_dotenv
 from flask import Flask, request
 
-
 # загружаем переменные окружения из файла .env
 load_dotenv()
 TOKEN = environ.get('TOKEN')
-PORT = environ.get('PORT', 5000)
+PORT = int(environ.get('PORT', 5000))
 
 # создаем обьект bot и обьект server
 bot = telebot.TeleBot(token=TOKEN)
@@ -37,8 +36,9 @@ def webhook():
 # main функция с polling
 # наш бот постоянно бегает на сервер Telegram с вопросом "Для меня есть сообщения?"
 def main():
-    server.run(host="0.0.0.0", port=PORT)
+    pass
 
 
 if __name__ == '__main__':
+    server.run(host="0.0.0.0", port=PORT)
     main()
